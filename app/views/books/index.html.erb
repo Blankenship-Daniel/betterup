@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+<div class="page-header">
+  <h2>Books</h2>
+  <%= link_to 'New Book', new_book_path, {class: 'button button-header'} %>
+</div>
+
+<div class="cards-container">
+  <% @books.each do |book| %>
+    <div class="book-card">
+      <div class="card-book-preview">
+        <img src="<%= book.google_book.preview_image_link %>">
+      </div>
+      <div class="card-book-description">
+        <h3 class="card-heading"><%= book.name %></h3>
+        <h4 class="card-subheading">Author: <strong><%= book.author.name %></strong></h4>
+        <h4 class="card-subheading">Year: <strong><%= book.year %></strong></h4>
+        <div class="favorite">
+          <label class="favorite-label" for=<%= "favorite-#{book.id}"%>>Favorite</label>
+          <input
+            type=checkbox
+            id=<%= "favorite-#{book.id}"%> name=<%= "favorite-#{book.id}"%>
+            <%= "checked" if book.favorite? %>
+            data-book-id=<%= book.id %>
+            data-action="book#toggleFavorite"
+          />
+        </div>
+        <div class="buy-now">
+          <a class="button" href="<%= book.google_book.buy_now_link %>" target="_blank">Buy Now</a>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<br>
